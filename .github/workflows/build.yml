@@ -36,6 +36,7 @@ jobs:
           cd content/posts
           date=$(date '+%Y-%m-%d')
           touch release-dummy-$date.md
+          ls
       - name: Put content in file
         run: |
           echo "---" >> release-dummy-$date.md
