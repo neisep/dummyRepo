@@ -29,5 +29,8 @@ jobs:
           ref: 'master'
           token: ${{ secrets.MAIN_REPO_TOKEN }}
 
-    # Download source from neisep.com repo
+      - name: Run shell commands
+        run: |
+          echo "TEST"
+          echo $GITHUB_WORKSPACE
     
