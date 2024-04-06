@@ -29,9 +29,20 @@ jobs:
           ref: 'master'
           token: ${{ secrets.MAIN_REPO_TOKEN }}
 
-      - name: Run shell commands
+      - name: Create new file in repo
         run: |
-          echo "TEST"
+          echo "Creates a new file in repo or atleast tries to"
           cd $GITHUB_WORKSPACE
-          ls
-    
+          cd content/posts
+          date=$(date '+%Y-%m-%d')
+          touch release-dummy-$date.md
+      - name: Put content in file
+        run: |
+          echo "---" >> release-dummy-$date.md
+          echo "title: "Anything New Yet No"" >> release-dummy-$date.md
+          echo "date: 2018-07-21T10:58:53+01:00" >> release-dummy-$date.md
+          echo "draft: false" >> release-dummy-$date.md
+          echo "---" >> release-dummy-$date.md
+          echo "" >> release-dummy-$date.md
+          echo "New release created today, go check it out" >> release-dummy-$date.md
+          echo "<img src="https://raw.githubusercontent.com/neisep/guidgenerator/master/software.png"/>" >> release-dummy-$date.md
