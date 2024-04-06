@@ -60,7 +60,7 @@ jobs:
           echo "" >> "$fileName"
           echo "New release created today, go check it out" >> "$fileName"
           echo "" >> "$fileName"
-          git log --no-merges --git-dir /$GITHUB_WORKSPACE/main/.git --pretty=format:"%s" $(git describe --tags --abbrev=0)..HEAD >> "$fileName"
+          git log --no-merges --pretty=format:"%s" --git-dir /$GITHUB_WORKSPACE/main/.git $(git describe --tags --abbrev=0)..HEAD >> "$fileName"
           echo "<img src=\"https://raw.githubusercontent.com/neisep/guidgenerator/master/software.png\"/>" >> "$fileName"
 
       - name: List directories
