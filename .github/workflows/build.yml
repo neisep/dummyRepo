@@ -64,7 +64,7 @@ jobs:
           echo "<img src=\"https://raw.githubusercontent.com/neisep/guidgenerator/master/software.png\"/>" >> "$fileName"
 
       - name: List directories
-          run: |
+        run: |
           echo "working directory"
           ls
           echo "workspace dir"
