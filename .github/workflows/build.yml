@@ -35,15 +35,19 @@ jobs:
           cd $GITHUB_WORKSPACE
           cd content/posts
           date=$(date '+%Y-%m-%d')
-          touch release-dummy-$date.md
+          fileName=release-dummy-$date.md
+          touch $fileName
           ls
       - name: Put content in file
         run: |
-          echo "---" >> release-dummy-$date.md
-          echo "title: "Anything New Yet No"" >> release-dummy-$date.md
-          echo "date: 2018-07-21T10:58:53+01:00" >> release-dummy-$date.md
-          echo "draft: false" >> release-dummy-$date.md
-          echo "---" >> release-dummy-$date.md
-          echo "" >> release-dummy-$date.md
-          echo "New release created today, go check it out" >> release-dummy-$date.md
-          echo "<img src="https://raw.githubusercontent.com/neisep/guidgenerator/master/software.png"/>" >> release-dummy-$date.md
+          echo "---" >> $fileName
+          echo "title: "Anything New Yet No"" >> $fileName
+          echo "date: 2018-07-21T10:58:53+01:00" >> $fileName
+          echo "draft: false" >> $fileName
+          echo "---" >> $fileName
+          echo "" >> $fileName
+          echo "New release created today, go check it out" >> $fileName
+          echo "<img src="https://raw.githubusercontent.com/neisep/guidgenerator/master/software.png"/>" >> $fileName
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with: 
+          commit_message: "update release from dummy"
