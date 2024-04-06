@@ -22,9 +22,15 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      # Checks-out the main repo under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          path: main
       # Checks-out external repo under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
         with:
+          path: website
           repository: ${{ secrets.MAIN_REPO_URI }}
           ref: 'master'
           token: ${{ secrets.MAIN_REPO_TOKEN }}
@@ -33,7 +39,7 @@ jobs:
         run: |
           echo "Creates a new file in repo or atleast tries to"
           cd $GITHUB_WORKSPACE
-          cd content/posts
+          cd website/content/posts
           date=$(date '+%Y-%m-%d')
           fileName=release-dummy-$date.md
           touch $fileName
@@ -41,21 +47,23 @@ jobs:
       - name: Put content in file
         run: |
           cd $GITHUB_WORKSPACE
-          cd content/posts
+          cd website/content/posts
           date=$(date '+%Y-%m-%d')
           fileName=release-dummy-$date.md
           echo "Directory: "
           ls
           echo "---" >> "$fileName"
-          echo "title: \"Anything New Yet No\" " >> "$fileName"
+          echo "title: \"release dummy $date\" " >> "$fileName"
           echo "date: 2018-07-21T10:58:53+01:00" >> "$fileName"
           echo "draft: false" >> "$fileName"
           echo "---" >> "$fileName"
           echo "" >> "$fileName"
           echo "New release created today, go check it out" >> "$fileName"
           echo "" >> "$fileName"
+          #git log --no-merges --pretty=format:"%s" v1.0.8... >> "$fileName"
           echo "<img src=\"https://raw.githubusercontent.com/neisep/guidgenerator/master/software.png\"/>" >> "$fileName"
           
       - uses: stefanzweifel/git-auto-commit-action@v5
         with: 
           commit_message: "update release from dummy"
+          repository: $GITHUB_WORKSPACE/website
