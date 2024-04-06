@@ -48,7 +48,8 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE
           cd main
-          git log --no-merges --pretty=format:"%s" $(git describe --tags --abbrev=0)... >> "changelog.txt"
+          git describe --tags --abbrev=0
+          #git log --no-merges --pretty=format:"%s" $(git describe --tags --abbrev=0)... >> "changelog.txt"
           
       - name: Put content in file
         run: |
