@@ -26,7 +26,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: 'neisep/neisep.com'
-          ref: 'main'
+          ref: 'master'
           token: ${{ secrets.MAIN_REPO_TOKEN }}
 
     # Download source from neisep.com repo
