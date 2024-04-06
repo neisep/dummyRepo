@@ -44,6 +44,11 @@ jobs:
           fileName=release-dummy-$date.md
           touch $fileName
           ls
+      - name: Create Changelog
+        run: |
+          cd $GITHUB_WORKSPACE/main
+          git log --no-merges --pretty=format:"%s" /.git $(git describe --tags --abbrev=0).. >> "changelog.txt"
+          
       - name: Put content in file
         run: |
           cd $GITHUB_WORKSPACE
@@ -60,7 +65,6 @@ jobs:
           echo "" >> "$fileName"
           echo "New release created today, go check it out" >> "$fileName"
           echo "" >> "$fileName"
-          git log --no-merges --pretty=format:"%s" --git-dir /$GITHUB_WORKSPACE/main/.git $(git describe --tags --abbrev=0)..HEAD >> "$fileName"
           echo "<img src=\"https://raw.githubusercontent.com/neisep/guidgenerator/master/software.png\"/>" >> "$fileName"
 
       - name: List directories
