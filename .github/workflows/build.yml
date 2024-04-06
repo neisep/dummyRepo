@@ -46,8 +46,9 @@ jobs:
           ls
       - name: Create Changelog
         run: |
-          cd $GITHUB_WORKSPACE/main
-          git log --no-merges --pretty=format:"%s" $(git describe --tags --abbrev=0).. >> "changelog.txt"
+          cd $GITHUB_WORKSPACE
+          cd main
+          git log --no-merges --pretty=format:"%s" $(git describe --tags --abbrev=0)..HEAD >> "changelog.txt"
           
       - name: Put content in file
         run: |
