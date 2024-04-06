@@ -52,7 +52,8 @@ jobs:
           echo "draft: false" >> "$fileName"
           echo "---" >> "$fileName"
           echo "" >> "$fileName"
-          echo "New release created today, go check it out\n" >> "$fileName"
+          echo "New release created today, go check it out" >> "$fileName"
+          echo "" >> "$fileName"
           echo "<img src=\"https://raw.githubusercontent.com/neisep/guidgenerator/master/software.png\"/>" >> "$fileName"
           
       - uses: stefanzweifel/git-auto-commit-action@v5
