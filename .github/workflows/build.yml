@@ -25,7 +25,7 @@ jobs:
       # Checks-out external repo under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
         with:
-          repository: ${{ secrets.MAIN_REPO }}
+          repository: 'neisep/neisep.com'
           ref: 'main'
           token: ${{ secrets.MAIN_REPO_TOKEN }}
 
