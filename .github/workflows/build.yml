@@ -50,7 +50,6 @@ jobs:
           cd website/content/posts
           date=$(date '+%Y-%m-%d')
           fileName=release-dummy-$date.md
-          lastestGitTag=git describe --abbrev=0
           echo "Directory: "
           ls
           echo "---" >> "$fileName"
@@ -61,7 +60,7 @@ jobs:
           echo "" >> "$fileName"
           echo "New release created today, go check it out" >> "$fileName"
           echo "" >> "$fileName"
-          git log --git-dir /$GITHUB_WORKSPACE/main/.git --no-merges --pretty=format:"%s" $lastestGitTag... >> "$fileName"
+          git log --git-dir /$GITHUB_WORKSPACE/main/.git --no-merges --pretty=format:"%s" $(git describe --tags --abbrev=0)..HEAD >> "$fileName"
           echo "<img src=\"https://raw.githubusercontent.com/neisep/guidgenerator/master/software.png\"/>" >> "$fileName"
 
       - name: List directories
