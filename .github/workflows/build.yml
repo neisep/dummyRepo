@@ -40,6 +40,10 @@ jobs:
           ls
       - name: Put content in file
         run: |
+          cd $GITHUB_WORKSPACE
+          cd content/posts
+          date=$(date '+%Y-%m-%d')
+          fileName=release-dummy-$date.md
           echo "Directory: "
           ls
           echo "---" >> "$fileName"
