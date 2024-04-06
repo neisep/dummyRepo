@@ -62,8 +62,17 @@ jobs:
           echo "" >> "$fileName"
           #git log --no-merges --pretty=format:"%s" v1.0.8... >> "$fileName"
           echo "<img src=\"https://raw.githubusercontent.com/neisep/guidgenerator/master/software.png\"/>" >> "$fileName"
-          
-      - uses: stefanzweifel/git-auto-commit-action@v5
-        with: 
-          commit_message: "update release from dummy"
+
+      - name: List directories
+          run: |
+          echo "working directory"
+          ls
+          echo "workspace dir"
+          cd $GITHUB_WORKSPACE
+          ls
+          cd website
+          ls
+      #- uses: stefanzweifel/git-auto-commit-action@v5
+      #  with: 
+      #    commit_message: "update release from dummy"
           repository: $GITHUB_WORKSPACE/website
