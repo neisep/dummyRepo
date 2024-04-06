@@ -25,7 +25,7 @@ jobs:
       # Checks-out external repo under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
         with:
-          repository: '${{ secrets.MAIN_REPO }}'
+          repository: ${{ secrets.MAIN_REPO }}
           ref: 'main'
           token: ${{ secrets.MAIN_REPO_TOKEN }}
 
