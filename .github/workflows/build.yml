@@ -47,13 +47,13 @@ jobs:
           echo "Directory: "
           ls
           echo "---" >> "$fileName"
-          echo "title: "Anything New Yet No"" >> "$fileName"
+          echo "title: ""Anything New Yet No"" " >> "$fileName"
           echo "date: 2018-07-21T10:58:53+01:00" >> "$fileName"
           echo "draft: false" >> "$fileName"
           echo "---" >> "$fileName"
           echo "" >> "$fileName"
           echo "New release created today, go check it out" >> "$fileName"
-          echo "<img src="https://raw.githubusercontent.com/neisep/guidgenerator/master/software.png"/>" >> "$fileName"
+          echo "<img src=""https://raw.githubusercontent.com/neisep/guidgenerator/master/software.png""/>" >> "$fileName"
           
       - uses: stefanzweifel/git-auto-commit-action@v5
         with: 
