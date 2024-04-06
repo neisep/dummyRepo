@@ -40,6 +40,8 @@ jobs:
           ls
       - name: Put content in file
         run: |
+          echo "Directory: "
+          ls
           echo "---" >> "$fileName"
           echo "title: "Anything New Yet No"" >> "$fileName"
           echo "date: 2018-07-21T10:58:53+01:00" >> "$fileName"
