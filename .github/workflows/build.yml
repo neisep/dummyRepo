@@ -48,7 +48,7 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE
           cd main
-          git log --no-merges --pretty=format:"%s" $(git describe --tags --abbrev=0)..HEAD >> "changelog.txt"
+          git log --no-merges --pretty=format:"%s" $(git describe --tags --abbrev=0)... >> "changelog.txt"
           
       - name: Put content in file
         run: |
@@ -77,7 +77,7 @@ jobs:
           ls
           cd website
           ls
-      - uses: stefanzweifel/git-auto-commit-action@v5
-        with: 
-          commit_message: "update release from dummy"
-          repository: website
+      #- uses: stefanzweifel/git-auto-commit-action@v5
+      #  with: 
+      #    commit_message: "update release from dummy"
+      #    repository: website
