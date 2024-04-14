@@ -46,7 +46,8 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE
           cd main
-          echo "lasttag=$(git describe --tags `git rev-list --tags --max-count=1`)" >> $GITHUB_ENV
+          lasttag=$(git describe --tags `git rev-list --tags --max-count=1`)
+          echo "lasttag=$lasttag" >> $GITHUB_ENV
           echo $lasttag
           
       - id: createnewpost
