@@ -23,12 +23,14 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out the main repo under $GITHUB_WORKSPACE, so your job can access it
-      - name: Checkout
+      - name: Checkout main repo
         uses: actions/checkout@v4
         with:
           path: main
+          fetch-depth: 0
       # Checks-out external repo under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
+      - name: Checkout remote repo
+        uses: actions/checkout@v4
         with:
           path: website
           repository: ${{ secrets.MAIN_REPO_URI }}
@@ -48,8 +50,7 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE
           cd main
-          git fetch --tags
-          git describe --tags --abbrev=0
+          git describe --tags --abbrev=0 --always
           #git log --no-merges --pretty=format:"%s" $(git describe --tags --abbrev=0)... >> "changelog.txt"
           
       - name: Put content in file
