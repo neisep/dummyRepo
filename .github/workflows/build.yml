@@ -23,21 +23,24 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out the main repo under $GITHUB_WORKSPACE, so your job can access it
-      - name: Checkout main repo
+      - id: checkoutmain
+        name: Checkout main repo
         uses: actions/checkout@v4
         with:
           path: main
           fetch-depth: 0 #this is needed to fetch all the tags
       # Checks-out external repo under $GITHUB_WORKSPACE, so your job can access it
-      - name: Checkout remote repo
+      - id: checkoutremote
+        name: Checkout remote repo
         uses: actions/checkout@v4
         with:
           path: website
           repository: ${{ secrets.MAIN_REPO_URI }}
           ref: 'master'
           token: ${{ secrets.MAIN_REPO_TOKEN }}
-
-      - name: Create new file in repo
+          
+      - id: createnewpost
+        name: Create new file in repo
         run: |
           echo "Creates a new file in repo or atleast tries to"
           cd $GITHUB_WORKSPACE
@@ -46,16 +49,16 @@ jobs:
           fileName=release-dummy-$date.md
           touch $fileName
           ls
-      - name: Create Changelog
+      - id: createchangelog
+        name: Create Changelog
         run: |
           cd $GITHUB_WORKSPACE
           cd main
           LAST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
-          echo $LAST_TAG
-          git log --pretty=format:'%s' $LAST_TAG..HEAD >> "changelog.txt"
-          ls
+          #echo $LAST_TAG
+          echo changelog=git log --no-merges --pretty=format:'%s' $LAST_TAG..HEAD >> "$GITHUB_OUTPUT"
           #git describe --tags --abbrev=0 --always
-          #git log --no-merges --pretty=format:"%s" $(git describe --tags --abbrev=0)... >> "changelog.txt"
+          #git log --no-merges --pretty=format:"%s" $(git describe --tags --abbrev=0)... > "changelog.txt"
           
       - name: Put content in file
         run: |
@@ -70,6 +73,8 @@ jobs:
           echo "date: 2018-07-21T10:58:53+01:00" >> "$fileName"
           echo "draft: false" >> "$fileName"
           echo "---" >> "$fileName"
+          echo "" >> "$fileName"
+          echo "$steps.createchangelog.outputs.changelog" >> "$fileName"
           echo "" >> "$fileName"
           echo "New release created today, go check it out" >> "$fileName"
           echo "" >> "$fileName"
