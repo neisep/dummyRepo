@@ -117,7 +117,7 @@ jobs:
           cat ../../../changelog.txt >> $fileName
           echo "" >> "$fileName"
           echo "" >> "$fileName"
-          echo "<img src=\"https://raw.githubusercontent.com/neisep/guidgenerator/master/software.png\"/>" >> "$fileName"
+          echo "{{ $image := resources.GetRemote "https://raw.githubusercontent.com/neisep/guidgenerator/master/software.png" }}" >> "$fileName"
           echo "" >> "$fileName"
           echo "${{ github.server_url }}/${{ github.repository }}" >> "$fileName"
 
