@@ -68,7 +68,7 @@ jobs:
           cd $GITHUB_WORKSPACE
           cd website/content/posts
           date=$(date '+%Y-%m-%d')
-          dateLong=$(date '+%Y-%m-%dT%H:%M:%S+%z')
+          dateLong=$(date '+%Y-%m-%dT%H:%M:%S%z')
           fileName=release-dummy-$date.md
           echo "Directory: "
           ls
@@ -79,8 +79,8 @@ jobs:
           echo "---" >> "$fileName"
           echo "" >> "$fileName"
           echo "New release created today, the following was commited:" >> "$fileName"
-          cat ../../../changelog.txt >> $fileName
           echo "" >> "$fileName"
+          cat ../../../changelog.txt >> $fileName
           echo "" >> "$fileName"
           echo "<img src=\"https://raw.githubusercontent.com/neisep/guidgenerator/master/software.png\"/>" >> "$fileName"
 
