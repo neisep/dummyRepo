@@ -105,7 +105,7 @@ jobs:
           fileName=release-${{ github.event.repository.name }}-$lasttag.md
           echo "Directory: "
           ls
-          sed '4 s/true/false/' $fileName
+          sed "4 s/true/false/g" $fileName
           #echo "---" > "$fileName"
           #echo "title: \"release ${{ github.event.repository.name }} $lasttag\" " >> "$fileName"
           #echo "date: $dateLong" >> "$fileName"
