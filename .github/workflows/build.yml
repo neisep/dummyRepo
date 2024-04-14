@@ -41,6 +41,7 @@ jobs:
           repository: ${{ secrets.MAIN_REPO_URI }}
           ref: 'master'
           token: ${{ secrets.MAIN_REPO_TOKEN }}
+
       - id: getlatesttag
         name: Get last Tag
         run: |
@@ -49,17 +50,37 @@ jobs:
           lasttag=$(git describe --tags `git rev-list --tags --max-count=1`)
           echo "lasttag=$lasttag" >> $GITHUB_ENV
           echo $lasttag
-          
-      - id: createnewpost
-        name: Create new file in repo
+      
+      - name: Install Hugo CLI
         run: |
-          echo "Creates a new file in repo or atleast tries to"
+          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb \
+          && sudo dpkg -i ${{ runner.temp }}/hugo.deb
+      - name: Install Dart Sass
+        run: sudo snap install dart-sass
+
+      - name: Install Node.js dependencies
+        run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
+      - name: Create Post with Hugo
+        env:
+          HUGO_ENVIRONMENT: production
+          HUGO_ENV: production
+        run: |
           cd $GITHUB_WORKSPACE
-          cd website/content/posts
-          date=$(date '+%Y-%m-%d')
+          cd website
           fileName=release-${{ github.event.repository.name }}-$lasttag.md
-          touch $fileName
-          ls
+          hugo \
+            new posts/$fileName
+            
+     # - id: createnewpost
+     #   name: Create new file in repo
+     #   run: |
+     #     echo "Creates a new file in repo or atleast tries to"
+     #     cd $GITHUB_WORKSPACE
+     #     cd website/content/posts
+     #     date=$(date '+%Y-%m-%d')
+     #     fileName=release-${{ github.event.repository.name }}-$lasttag.md
+     #     touch $fileName
+     #     ls
       - id: createchangelog
         name: Create Changelog
         run: |
@@ -83,12 +104,12 @@ jobs:
           fileName=release-${{ github.event.repository.name }}-$lasttag.md
           echo "Directory: "
           ls
-          echo "---" > "$fileName"
-          echo "title: \"release ${{ github.event.repository.name }} $lasttag\" " >> "$fileName"
-          echo "date: $dateLong" >> "$fileName"
-          echo "draft: false" >> "$fileName"
-          echo "---" >> "$fileName"
-          echo "" >> "$fileName"
+          #echo "---" > "$fileName"
+          #echo "title: \"release ${{ github.event.repository.name }} $lasttag\" " >> "$fileName"
+          #echo "date: $dateLong" >> "$fileName"
+          #echo "draft: false" >> "$fileName"
+          #echo "---" >> "$fileName"
+          #echo "" >> "$fileName"
           echo "New release created today, the following was commited:" >> "$fileName"
           echo "" >> "$fileName"
           cat ../../../changelog.txt >> $fileName
