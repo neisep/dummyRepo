@@ -57,6 +57,7 @@ jobs:
           LAST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
           #echo $LAST_TAG
           git log --no-merges --pretty=format:'%n%s' $LAST_TAG..HEAD > "changelog.txt"
+          cp changelog.txt $GITHUB_WORKSPACE/changelog.txt
           #git describe --tags --abbrev=0 --always
           #git log --no-merges --pretty=format:"%s" $(git describe --tags --abbrev=0)... > "changelog.txt"
           
@@ -74,7 +75,7 @@ jobs:
           echo "draft: false" >> "$fileName"
           echo "---" >> "$fileName"
           echo "" >> "$fileName"
-          /main/changelog.txt >> "$fileName"
+          $GITHUB_WORKSPACE/changelog.txt >> "$fileName"
           echo "" >> "$fileName"
           echo "New release created today, go check it out" >> "$fileName"
           echo "" >> "$fileName"
