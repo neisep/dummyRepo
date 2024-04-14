@@ -48,6 +48,7 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE
           cd main
+          git fetch --tags
           git describe --tags --abbrev=0
           #git log --no-merges --pretty=format:"%s" $(git describe --tags --abbrev=0)... >> "changelog.txt"
           
