@@ -56,7 +56,7 @@ jobs:
           cd main
           LAST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
           #echo $LAST_TAG
-          echo changelog=git log --no-merges --pretty=format:'%s' $LAST_TAG..HEAD >> "$GITHUB_OUTPUT"
+          echo changelog=$(git log --no-merges --pretty=format:'%s' $LAST_TAG..HEAD) >> "$GITHUB_OUTPUT"
           #git describe --tags --abbrev=0 --always
           #git log --no-merges --pretty=format:"%s" $(git describe --tags --abbrev=0)... > "changelog.txt"
           
