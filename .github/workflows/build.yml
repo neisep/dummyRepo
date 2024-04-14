@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
   
 env:
-  lasttag: test
+  lasttag: v.0.0.1
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -80,7 +80,7 @@ jobs:
           echo "Directory: "
           ls
           echo "---" > "$fileName"
-          echo "title: \"release ${{ github.event.repository.name }} ${{ LastTag }}\" " >> "$fileName"
+          echo "title: \"release ${{ github.event.repository.name }} ${{ lasttag }}\" " >> "$fileName"
           echo "date: $dateLong" >> "$fileName"
           echo "draft: false" >> "$fileName"
           echo "---" >> "$fileName"
