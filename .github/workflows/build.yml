@@ -54,9 +54,10 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE
           cd main
-          echo LAST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`) >> "$GITHUB_OUTPUT"
-          echo ${{ steps.createchangelog.outputs.LAST_TAG }}
-          git log --no-merges --pretty=format:'%as [%an] - %s<br>' ${{ steps.createchangelog.outputs.LAST_TAG }}..HEAD > "changelog.txt"
+          LAST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
+          echo LAST_TAG=$LAST_TAG >> "$GITHUB_OUTPUT"
+          echo $LAST_TAG
+          git log --no-merges --pretty=format:'%as [%an] - %s<br>' $LAST_TAG..HEAD > "changelog.txt"
           cp changelog.txt ../changelog.txt
           cd ..
           chmod 744 changelog.txt
