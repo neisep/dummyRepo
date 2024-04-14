@@ -45,7 +45,7 @@ jobs:
         name: Get last Tag
         run: |
           echo "lasttag=$(git describe --tags `git rev-list --tags --max-count=1`)" >> $GITHUB_ENV
-          echo @lasttag
+          echo ${{ env.lasttag }}
           
       - id: createnewpost
         name: Create new file in repo
