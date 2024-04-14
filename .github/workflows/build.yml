@@ -72,7 +72,7 @@ jobs:
           echo "Directory: "
           ls
           echo "---" > "$fileName"
-          echo "title: \"release ${{ github.event.repository.name }} $date\" " >> "$fileName"
+          echo "title: \"release ${{ github.event.repository.name }} ${{steps.createchangelog.LAST_TAG}}\" " >> "$fileName"
           echo "date: $dateLong" >> "$fileName"
           echo "draft: false" >> "$fileName"
           echo "---" >> "$fileName"
