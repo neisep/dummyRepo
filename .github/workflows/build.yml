@@ -46,8 +46,8 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE
           cd main
-          echo "lasttag=v.0.0.2" >> $GITHUB_ENV
-          echo ${{ env.lasttag }}
+          echo "lasttag=$(git describe --tags `git rev-list --tags --max-count=1`)" >> $GITHUB_ENV
+          echo $lasttag
           
       - id: createnewpost
         name: Create new file in repo
