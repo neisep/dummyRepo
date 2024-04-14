@@ -77,7 +77,7 @@ jobs:
           echo "draft: false" >> "$fileName"
           echo "---" >> "$fileName"
           echo "" >> "$fileName"
-          ../../../changelog.txt >> $fileName
+          cat ../../../changelog.txt >> $fileName
           echo "" >> "$fileName"
           echo "New release created today, go check it out" >> "$fileName"
           echo "" >> "$fileName"
