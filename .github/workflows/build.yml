@@ -20,7 +20,7 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest    
     env:
-      LastTag: v.0.0.0
+      lasttag: v.0.0.0
       
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -43,7 +43,7 @@ jobs:
       - id: getlatesttag
         name: Get last Tag
         run: |
-          echo "LastTag=$(git describe --tags `git rev-list --tags --max-count=1`)" >> $GITHUB_ENV
+          echo "lasttag=$(git describe --tags `git rev-list --tags --max-count=1`)" >> $GITHUB_ENV
           
       - id: createnewpost
         name: Create new file in repo
