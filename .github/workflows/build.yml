@@ -57,7 +57,7 @@ jobs:
           cd $GITHUB_WORKSPACE
           cd website/content/posts
           date=$(date '+%Y-%m-%d')
-          fileName=release-dummy-$date.md
+          fileName=release-${{ github.event.repository.name }}-$lasttag.md
           touch $fileName
           ls
       - id: createchangelog
@@ -80,7 +80,7 @@ jobs:
           cd website/content/posts
           date=$(date '+%Y-%m-%d')
           dateLong=$(date '+%Y-%m-%dT%H:%M:%S%z')
-          fileName=release-dummy-$date.md
+          fileName=release-${{ github.event.repository.name }}-$lasttag.md
           echo "Directory: "
           ls
           echo "---" > "$fileName"
