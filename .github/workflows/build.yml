@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
   
 env:
-  lasttag: test
+  lasttag: v.0.0.0
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -45,6 +45,7 @@ jobs:
         name: Get last Tag
         run: |
           echo "lasttag=$(git describe --tags `git rev-list --tags --max-count=1`)" >> $GITHUB_ENV
+          echo @lasttag
           
       - id: createnewpost
         name: Create new file in repo
@@ -63,8 +64,8 @@ jobs:
           cd main
           #LAST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
           #echo LAST_TAG=$LAST_TAG >> "$GITHUB_OUTPUT"
-          echo $LastTag
-          git log --no-merges --pretty=format:'%as [%an] - %s<br>' $LastTag..HEAD > "changelog.txt"
+          echo $lasttag
+          git log --no-merges --pretty=format:'%as [%an] - %s<br>' $lasttag..HEAD > "changelog.txt"
           cp changelog.txt ../changelog.txt
           cd ..
           chmod 744 changelog.txt
