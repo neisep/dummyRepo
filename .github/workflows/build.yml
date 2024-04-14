@@ -18,8 +18,10 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
+    runs-on: ubuntu-latest    
+    env:
+      LastTag: $(git describe --tags `git rev-list --tags --max-count=1`)
+      
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out the main repo under $GITHUB_WORKSPACE, so your job can access it
@@ -54,10 +56,10 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE
           cd main
-          LAST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
-          echo LAST_TAG=$LAST_TAG >> "$GITHUB_OUTPUT"
-          echo $LAST_TAG
-          git log --no-merges --pretty=format:'%as [%an] - %s<br>' $LAST_TAG..HEAD > "changelog.txt"
+          #LAST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
+          #echo LAST_TAG=$LAST_TAG >> "$GITHUB_OUTPUT"
+          echo $LastTag
+          git log --no-merges --pretty=format:'%as [%an] - %s<br>' $LastTag..HEAD > "changelog.txt"
           cp changelog.txt ../changelog.txt
           cd ..
           chmod 744 changelog.txt
@@ -73,7 +75,7 @@ jobs:
           echo "Directory: "
           ls
           echo "---" > "$fileName"
-          echo "title: \"release ${{ github.event.repository.name }} ${{ steps.createchangelog.outputs.LAST_TAG }}\" " >> "$fileName"
+          echo "title: \"release ${{ github.event.repository.name }} ${{ LastTag }}\" " >> "$fileName"
           echo "date: $dateLong" >> "$fileName"
           echo "draft: false" >> "$fileName"
           echo "---" >> "$fileName"
