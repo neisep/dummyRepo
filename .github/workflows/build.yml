@@ -74,7 +74,7 @@ jobs:
           echo "draft: false" >> "$fileName"
           echo "---" >> "$fileName"
           echo "" >> "$fileName"
-          echo "$steps.createchangelog.outputs.changelog" >> "$fileName"
+          echo "${{steps.createchangelog.outputs.changelog}}" >> "$fileName"
           echo "" >> "$fileName"
           echo "New release created today, go check it out" >> "$fileName"
           echo "" >> "$fileName"
