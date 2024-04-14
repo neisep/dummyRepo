@@ -75,7 +75,7 @@ jobs:
           echo "draft: false" >> "$fileName"
           echo "---" >> "$fileName"
           echo "" >> "$fileName"
-          $GITHUB_WORKSPACE/changelog.txt >> "$fileName"
+          ../../changelog.txt >> "$fileName"
           echo "" >> "$fileName"
           echo "New release created today, go check it out" >> "$fileName"
           echo "" >> "$fileName"
