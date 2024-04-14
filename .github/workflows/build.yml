@@ -56,7 +56,7 @@ jobs:
           cd main
           LAST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
           #echo $LAST_TAG
-          git log --no-merges --pretty=format:'%cs<%cn> - %s<br>' $LAST_TAG..HEAD > "changelog.txt"
+          git log --no-merges --pretty=format:'%as<%an> - %s<br>' $LAST_TAG..HEAD > "changelog.txt"
           cp changelog.txt ../changelog.txt
           cd ..
           chmod 744 changelog.txt
