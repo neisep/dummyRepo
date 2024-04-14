@@ -60,10 +60,9 @@ jobs:
           cp changelog.txt ../changelog.txt
           cd ..
           chmod 744 changelog.txt
-          #git describe --tags --abbrev=0 --always
-          #git log --no-merges --pretty=format:"%s" $(git describe --tags --abbrev=0)... > "changelog.txt"
           
-      - name: Put content in file
+      - id: createcontentpost
+        name: Put content in file
         run: |
           cd $GITHUB_WORKSPACE
           cd website/content/posts
@@ -73,7 +72,7 @@ jobs:
           echo "Directory: "
           ls
           echo "---" > "$fileName"
-          echo "title: \"release dummy $date\" " >> "$fileName"
+          echo "title: \"release ${{ github.repository }} $date\" " >> "$fileName"
           echo "date: $dateLong" >> "$fileName"
           echo "draft: false" >> "$fileName"
           echo "---" >> "$fileName"
@@ -87,15 +86,6 @@ jobs:
           echo "" >> "$fileName"
           echo "${{ github.server_url }}/${{ github.repository }}" >> "$fileName"
 
-      - name: List directories
-        run: |
-          echo "working directory"
-          ls
-          echo "workspace dir"
-          cd $GITHUB_WORKSPACE
-          ls
-          cd website
-          ls
       - uses: stefanzweifel/git-auto-commit-action@v5
         with: 
           commit_message: "update release from dummy"
