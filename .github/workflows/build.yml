@@ -90,7 +90,7 @@ jobs:
           #LAST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
           #echo LAST_TAG=$LAST_TAG >> "$GITHUB_OUTPUT"
           echo $lasttag
-          git log --no-merges --pretty=format:'%as [%an] - %s' $lasttag..HEAD > "changelog.txt"
+          git log --no-merges --pretty=format:'%as [%an] - %s%n' $lasttag..HEAD > "changelog.txt"
           cp changelog.txt ../changelog.txt
           cd ..
           chmod 744 changelog.txt
@@ -117,7 +117,7 @@ jobs:
           cat ../../../changelog.txt >> $fileName
           echo "" >> "$fileName"
           echo "" >> "$fileName"
-          echo "{{< figure src="/img/dummyRepo.png" height="500px" >}}"
+          echo "{{< figure src=\"/img/dummyRepo.png\" >}}"
           echo "" >> "$fileName"
           echo "${{ github.server_url }}/${{ github.repository }}" >> "$fileName"
 
